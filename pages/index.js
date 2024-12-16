@@ -1,6 +1,4 @@
 import { useState } from 'react';
-    import Image from 'next/image';
-    import logo from '../public/logo.png';
 
     export default function Home() {
       const [transactions, setTransactions] = useState([]);
@@ -8,48 +6,50 @@ import { useState } from 'react';
       const [amount, setAmount] = useState('');
 
       const addTransaction = () => {
-        setTransactions([...transactions, { description, amount }]);
+        setTransactions([...transactions, { description, amount: parseFloat(amount) }]);
         setDescription('');
         setAmount('');
       };
 
+      const total = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
+
       return (
         <div style={styles.container}>
-          <Image src={logo} alt="Logo" width={100} height={100} />
-          <h1 style={styles.title}>Team Accounting</h1>
+          <h1 style={styles.title}>Think Deep Accounting</h1>
           <div style={styles.inputContainer}>
             <input
               type="text"
-              placeholder="Description"
+              placeholder="Descripción"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               style={styles.input}
             />
             <input
               type="number"
-              placeholder="Amount"
+              placeholder="Monto"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               style={styles.input}
             />
-            <button onClick={addTransaction} style={styles.button}>Add Transaction</button>
+            <button onClick={addTransaction} style={styles.button}>Agregar Transacción</button>
           </div>
           <table style={styles.table}>
             <thead>
               <tr>
-                <th>Description</th>
-                <th>Amount</th>
+                <th>Descripción</th>
+                <th>Monto (MXN $)</th>
               </tr>
             </thead>
             <tbody>
               {transactions.map((transaction, index) => (
                 <tr key={index}>
                   <td>{transaction.description}</td>
-                  <td>{transaction.amount}</td>
+                  <td>{transaction.amount.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <h2 style={styles.total}>Total: MXN ${total.toFixed(2)}</h2>
         </div>
       );
     }
@@ -63,9 +63,10 @@ import { useState } from 'react';
         textAlign: 'center',
       },
       title: {
-        letterSpacing: '-0.15em',
+        letterSpacing: '-0.05em',
         lineHeight: '0.85em',
         color: '#FFD700',
+        marginBottom: '20px',
       },
       inputContainer: {
         margin: '20px 0',
@@ -94,5 +95,9 @@ import { useState } from 'react';
       td: {
         borderBottom: '1px solid #FFD700',
         padding: '10px',
+      },
+      total: {
+        marginTop: '20px',
+        color: '#FFD700',
       },
     };
