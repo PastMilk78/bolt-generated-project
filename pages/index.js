@@ -119,9 +119,9 @@ const styles = {
     marginBottom: '20px',
   },
   logo: {
-    width: '60px',
-    height: '60px',
-    marginRight: '10px',
+    width: '10px',
+    height: '10px',
+    marginRight: '80px',
   },
   title: {
     letterSpacing: '-0.05em',
