@@ -119,8 +119,8 @@ const styles = {
     marginBottom: '20px',
   },
   logo: {
-    width: '60px',
-    height: '60px',
+    width: '250px',
+    height: '250px',
     marginRight: '10px',
   },
   title: {
