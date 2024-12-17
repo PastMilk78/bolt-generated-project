@@ -39,10 +39,7 @@ export default function Home() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.header}>
-        <img src="/logo.png" alt="Logo" style={styles.logo} />
-        <h1 style={styles.title}>Think Deep Accounting</h1>
-      </div>
+      <h1 style={styles.title}>Think Deep Accounting</h1>
       <div style={styles.inputContainer}>
         <input
           type="text"
@@ -58,8 +55,10 @@ export default function Home() {
           onChange={(e) => setAmount(e.target.value)}
           style={styles.input}
         />
-        <button onClick={() => addTransaction('income')} style={styles.circleButton}>+</button>
-        <button onClick={() => addTransaction('expense')} style={styles.circleButton}>-</button>
+        <div style={styles.buttonContainer}>
+          <button onClick={() => addTransaction('income')} style={styles.circleButton}>+</button>
+          <button onClick={() => addTransaction('expense')} style={styles.circleButton}>-</button>
+        </div>
       </div>
       <div style={styles.tableContainer}>
         <table style={styles.table}>
@@ -109,32 +108,33 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '20px',
-  },
-  logo: {
-    width: '33%',
-    marginRight: '10px',
-  },
   title: {
     letterSpacing: '-0.05em',
     lineHeight: '0.85em',
     color: '#FFD700',
-    fontSize: '2em',
+    marginBottom: '20px',
+    fontWeight: 'normal',
   },
   inputContainer: {
     margin: '20px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   input: {
-    margin: '0 10px',
+    margin: '10px 0',
     padding: '10px',
     fontSize: '16px',
     borderRadius: '20px',
     border: '1px solid #FFD700',
     backgroundColor: '#333333',
     color: '#FFFFFF',
+    width: '80%',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '10px',
   },
   circleButton: {
     width: '40px',
@@ -146,7 +146,6 @@ const styles = {
     margin: '0 5px',
     borderRadius: '50%',
     fontSize: '20px',
-    fontWeight: 'bold',
     transition: 'background-color 0.3s',
   },
   deleteButton: {
@@ -176,13 +175,15 @@ const styles = {
     backgroundColor: '#444444',
   },
   th: {
+    borderBottom: '2px solid #FFD700',
     padding: '10px',
     color: '#FFD700',
-    borderBottom: '2px solid #FFD700',
+    fontWeight: 'normal',
   },
   td: {
     borderBottom: '1px solid #444444',
     padding: '10px',
+    fontWeight: 'normal',
   },
   totalContainer: {
     backgroundColor: '#2a2a2a',
@@ -197,9 +198,12 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    fontWeight: 'normal',
   },
   totalAmount: {
     color: '#FFD700',
+    marginLeft: '10px',
+    fontWeight: 'normal',
   },
   verticalSeparator: {
     width: '1px',
