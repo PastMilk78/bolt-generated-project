@@ -58,28 +58,30 @@ import { useState } from 'react';
             <button onClick={() => addTransaction('income')} style={styles.button}>+</button>
             <button onClick={() => addTransaction('expense')} style={styles.button}>-</button>
           </div>
-          <table style={styles.table}>
-            <thead>
-              <tr>
-                <th>Descripción</th>
-                <th>Monto (MXN $)</th>
-                <th>Hora</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((transaction, index) => (
-                <tr key={index}>
-                  <td>{transaction.description}</td>
-                  <td>{transaction.amount.toFixed(2)}</td>
-                  <td>{transaction.time.toLocaleTimeString()}</td>
-                  <td>
-                    <button onClick={() => removeTransaction(index)} style={styles.deleteButton}>Eliminar</button>
-                  </td>
+          <div style={styles.tableContainer}>
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th>Monto (MXN $)</th>
+                  <th>Hora</th>
+                  <th>Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {transactions.map((transaction, index) => (
+                  <tr key={index}>
+                    <td>{transaction.description}</td>
+                    <td>{transaction.amount.toFixed(2)}</td>
+                    <td>{transaction.time.toLocaleTimeString()}</td>
+                    <td>
+                      <button onClick={() => removeTransaction(index)} style={styles.deleteButton}>Eliminar</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <h2 style={styles.total}>Total: MXN ${total.toFixed(2)}</h2>
         </div>
       );
@@ -106,6 +108,8 @@ import { useState } from 'react';
         margin: '0 10px',
         padding: '10px',
         fontSize: '16px',
+        borderRadius: '5px',
+        border: '1px solid #FFD700',
       },
       button: {
         padding: '10px 20px',
@@ -114,6 +118,8 @@ import { useState } from 'react';
         color: '#333333',
         cursor: 'pointer',
         margin: '0 5px',
+        borderRadius: '5px',
+        transition: 'background-color 0.3s',
       },
       deleteButton: {
         padding: '5px 10px',
@@ -121,10 +127,18 @@ import { useState } from 'react';
         border: 'none',
         color: '#FFFFFF',
         cursor: 'pointer',
+        borderRadius: '5px',
+        transition: 'background-color 0.3s',
       },
-      table: {
+      tableContainer: {
+        backgroundColor: '#444444',
+        borderRadius: '10px',
+        padding: '20px',
         margin: '20px auto',
         width: '80%',
+      },
+      table: {
+        width: '100%',
         borderCollapse: 'collapse',
       },
       th: {
@@ -139,4 +153,12 @@ import { useState } from 'react';
         marginTop: '20px',
         color: '#FFD700',
       },
+    };
+
+    styles.button[':hover'] = {
+      backgroundColor: '#FFC107',
+    };
+
+    styles.deleteButton[':hover'] = {
+      backgroundColor: '#FF4500',
     };
