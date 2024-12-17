@@ -5,10 +5,34 @@ import { useState } from 'react';
       const [description, setDescription] = useState('');
       const [amount, setAmount] = useState('');
 
-      const addTransaction = () => {
-        setTransactions([...transactions, { description, amount: parseFloat(amount) }]);
+      const addTransaction = (type) => {
+        if (!description || !amount || parseFloat(amount) <= 0) {
+          alert('Por favor, completa todos los campos correctamente.');
+          return;
+        }
+
+        const transactionAmount = type === 'income' ? parseFloat(amount) : -parseFloat(amount);
+        const newTransaction = {
+          description,
+          amount: transactionAmount,
+          time: new Date(),
+        };
+
+        setTransactions([...transactions, newTransaction]);
         setDescription('');
         setAmount('');
+      };
+
+      const removeTransaction = (index) => {
+        const now = new Date();
+        const transactionTime = new Date(transactions[index].time);
+        const diff = (now - transactionTime) / 1000 / 60; // diferencia en minutos
+
+        if (diff <= 1) {
+          setTransactions(transactions.filter((_, i) => i !== index));
+        } else {
+          alert('No se puede eliminar la transacción después de un minuto.');
+        }
       };
 
       const total = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
@@ -31,13 +55,16 @@ import { useState } from 'react';
               onChange={(e) => setAmount(e.target.value)}
               style={styles.input}
             />
-            <button onClick={addTransaction} style={styles.button}>Agregar Transacción</button>
+            <button onClick={() => addTransaction('income')} style={styles.button}>+</button>
+            <button onClick={() => addTransaction('expense')} style={styles.button}>-</button>
           </div>
           <table style={styles.table}>
             <thead>
               <tr>
                 <th>Descripción</th>
                 <th>Monto (MXN $)</th>
+                <th>Hora</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -45,6 +72,10 @@ import { useState } from 'react';
                 <tr key={index}>
                   <td>{transaction.description}</td>
                   <td>{transaction.amount.toFixed(2)}</td>
+                  <td>{transaction.time.toLocaleTimeString()}</td>
+                  <td>
+                    <button onClick={() => removeTransaction(index)} style={styles.deleteButton}>Eliminar</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -81,6 +112,14 @@ import { useState } from 'react';
         backgroundColor: '#FFD700',
         border: 'none',
         color: '#333333',
+        cursor: 'pointer',
+        margin: '0 5px',
+      },
+      deleteButton: {
+        padding: '5px 10px',
+        backgroundColor: '#FF6347',
+        border: 'none',
+        color: '#FFFFFF',
         cursor: 'pointer',
       },
       table: {
