@@ -39,7 +39,10 @@ export default function Home() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Think Deep Accounting</h1>
+      <div style={styles.header}>
+        <img src="/logo.png" alt="Logo" style={styles.logo} />
+        <h1 style={styles.title}>Think Deep Accounting</h1>
+      </div>
       <div style={styles.inputContainer}>
         <input
           type="text"
@@ -106,11 +109,20 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '20px',
+  },
+  logo: {
+    width: '33%',
+    marginRight: '10px',
+  },
   title: {
     letterSpacing: '-0.05em',
     lineHeight: '0.85em',
     color: '#FFD700',
-    marginBottom: '20px',
+    fontSize: '2em',
   },
   inputContainer: {
     margin: '20px 0',
