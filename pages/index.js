@@ -40,27 +40,29 @@ export default function Home() {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <div style={styles.logo}></div>
+        <img src="/logo.png" alt="Logo" style={styles.logo} />
         <h1 style={styles.title}>Think Deep<br />Accounting</h1>
       </div>
-      <div style={styles.inputContainer}>
-        <input
-          type="text"
-          placeholder="Descripción"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          style={styles.input}
-        />
-        <input
-          type="number"
-          placeholder="Monto"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          style={styles.input}
-        />
-        <div style={styles.buttonContainer}>
-          <button onClick={() => addTransaction('income')} style={styles.circleButton}>+</button>
-          <button onClick={() => addTransaction('expense')} style={styles.circleButton}>-</button>
+      <div style={styles.inputSection}>
+        <div style={styles.inputContainer}>
+          <input
+            type="text"
+            placeholder="Descripción"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            style={styles.input}
+          />
+          <input
+            type="number"
+            placeholder="Monto"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            style={styles.input}
+          />
+          <div style={styles.buttonContainer}>
+            <button onClick={() => addTransaction('income')} style={styles.circleButton}>+</button>
+            <button onClick={() => addTransaction('expense')} style={styles.circleButton}>-</button>
+          </div>
         </div>
       </div>
       <div style={styles.tableContainer}>
@@ -119,8 +121,6 @@ const styles = {
   logo: {
     width: '60px',
     height: '60px',
-    backgroundColor: '#444444',
-    borderRadius: '10px',
     marginRight: '10px',
   },
   title: {
@@ -131,8 +131,15 @@ const styles = {
     fontSize: '24px',
     textAlign: 'left',
   },
+  inputSection: {
+    backgroundColor: '#2a2a2a',
+    borderRadius: '20px',
+    padding: '20px',
+    margin: '20px auto',
+    width: '80%',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+  },
   inputContainer: {
-    margin: '20px 0',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
