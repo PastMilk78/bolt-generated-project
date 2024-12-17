@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
 
-  const addTransaction = (type) => {
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
+  const fetchTransactions = async () => {
+    const res = await fetch('/api/transactions');
+    const data = await res.json();
+    if (data.success) {
+      setTransactions(data.data);
+    }
+  };
+
+  const addTransaction = async (type) => {
     if (!description || !amount || parseFloat(amount) <= 0) {
       alert('Por favor, completa todos los campos correctamente.');
       return;
@@ -18,9 +30,20 @@ export default function Home() {
       time: new Date(),
     };
 
-    setTransactions([...transactions, newTransaction]);
-    setDescription('');
-    setAmount('');
+    const res = await fetch('/api/transactions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTransaction),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      setTransactions([...transactions, data.data]);
+      setDescription('');
+      setAmount('');
+    }
   };
 
   const removeTransaction = (index) => {
@@ -119,8 +142,8 @@ const styles = {
     marginBottom: '20px',
   },
   logo: {
-    width: '250px',
-    height: '250px',
+    width: '60px',
+    height: '60px',
     marginRight: '10px',
   },
   title: {
