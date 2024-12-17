@@ -121,7 +121,7 @@ const styles = {
   logo: {
     width: '250px',
     height: '250px',
-    marginRight: '100px',
+    marginRight: '50px',
   },
   title: {
     letterSpacing: '-0.05em',
