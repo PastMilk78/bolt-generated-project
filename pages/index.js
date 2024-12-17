@@ -1,23 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
 
-  useEffect(() => {
-    fetchTransactions();
-  }, []);
-
-  const fetchTransactions = async () => {
-    const res = await fetch('/api/transactions');
-    const data = await res.json();
-    if (data.success) {
-      setTransactions(data.data);
-    }
-  };
-
-  const addTransaction = async (type) => {
+  const addTransaction = (type) => {
     if (!description || !amount || parseFloat(amount) <= 0) {
       alert('Por favor, completa todos los campos correctamente.');
       return;
@@ -30,20 +18,9 @@ export default function Home() {
       time: new Date(),
     };
 
-    const res = await fetch('/api/transactions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newTransaction),
-    });
-
-    const data = await res.json();
-    if (data.success) {
-      setTransactions([...transactions, data.data]);
-      setDescription('');
-      setAmount('');
-    }
+    setTransactions([...transactions, newTransaction]);
+    setDescription('');
+    setAmount('');
   };
 
   const removeTransaction = (index) => {
