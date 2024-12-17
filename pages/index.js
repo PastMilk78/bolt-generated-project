@@ -1,4 +1,5 @@
-import { useState } from 'react';
+rtphones
+	import { useState } from 'react';
 
     export default function Home() {
       const [transactions, setTransactions] = useState([]);
@@ -61,7 +62,7 @@ import { useState } from 'react';
           <div style={styles.tableContainer}>
             <table style={styles.table}>
               <thead>
-                <tr>
+                <tr style={styles.headerRow}>
                   <th style={styles.th}>Descripción</th>
                   <th style={styles.th}>Monto (MXN $)</th>
                   <th style={styles.th}>Hora</th>
@@ -104,6 +105,7 @@ import { useState } from 'react';
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        alignItems: 'center',
       },
       title: {
         letterSpacing: '-0.05em',
@@ -157,12 +159,14 @@ import { useState } from 'react';
         width: '100%',
         borderCollapse: 'collapse',
       },
+      headerRow: {
+        backgroundColor: '#444444',
+      },
       th: {
         borderBottom: '2px solid #FFD700',
         padding: '10px',
-        backgroundColor: '#444444',
         color: '#FFD700',
-        borderRadius: '20px',
+        borderRight: '1px solid #333333',
       },
       td: {
         borderBottom: '1px solid #444444',
