@@ -55,26 +55,26 @@ import { useState } from 'react';
               onChange={(e) => setAmount(e.target.value)}
               style={styles.input}
             />
-            <button onClick={() => addTransaction('income')} style={styles.button}>+</button>
-            <button onClick={() => addTransaction('expense')} style={styles.button}>-</button>
+            <button onClick={() => addTransaction('income')} style={styles.circleButton}>+</button>
+            <button onClick={() => addTransaction('expense')} style={styles.circleButton}>-</button>
           </div>
           <div style={styles.tableContainer}>
             <table style={styles.table}>
               <thead>
                 <tr>
-                  <th>Descripción</th>
-                  <th>Monto (MXN $)</th>
-                  <th>Hora</th>
-                  <th>Acciones</th>
+                  <th style={styles.th}>Descripción</th>
+                  <th style={styles.th}>Monto (MXN $)</th>
+                  <th style={styles.th}>Hora</th>
+                  <th style={styles.th}>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {transactions.map((transaction, index) => (
                   <tr key={index}>
-                    <td>{transaction.description}</td>
-                    <td>{transaction.amount.toFixed(2)}</td>
-                    <td>{transaction.time.toLocaleTimeString()}</td>
-                    <td>
+                    <td style={styles.td}>{transaction.description}</td>
+                    <td style={styles.td}>{transaction.amount.toFixed(2)}</td>
+                    <td style={styles.td}>{transaction.time.toLocaleTimeString()}</td>
+                    <td style={styles.td}>
                       <button onClick={() => removeTransaction(index)} style={styles.deleteButton}>Eliminar</button>
                     </td>
                   </tr>
@@ -82,7 +82,13 @@ import { useState } from 'react';
               </tbody>
             </table>
           </div>
-          <h2 style={styles.total}>Total: MXN ${total.toFixed(2)}</h2>
+          <div style={styles.totalContainer}>
+            <h2 style={styles.total}>
+              <span>Total</span>
+              <div style={styles.verticalSeparator}></div>
+              <span style={styles.totalAmount}>MXN ${total.toFixed(2)}</span>
+            </h2>
+          </div>
         </div>
       );
     }
@@ -92,8 +98,9 @@ import { useState } from 'react';
         padding: '20px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         color: '#FFFFFF',
-        backgroundColor: '#333333',
+        backgroundColor: '#1a1a1a',
         textAlign: 'center',
+        minHeight: '100vh',
       },
       title: {
         letterSpacing: '-0.05em',
@@ -108,17 +115,22 @@ import { useState } from 'react';
         margin: '0 10px',
         padding: '10px',
         fontSize: '16px',
-        borderRadius: '5px',
+        borderRadius: '20px',
         border: '1px solid #FFD700',
+        backgroundColor: '#333333',
+        color: '#FFFFFF',
       },
-      button: {
-        padding: '10px 20px',
+      circleButton: {
+        width: '40px',
+        height: '40px',
         backgroundColor: '#FFD700',
         border: 'none',
         color: '#333333',
         cursor: 'pointer',
         margin: '0 5px',
-        borderRadius: '5px',
+        borderRadius: '50%',
+        fontSize: '20px',
+        fontWeight: 'bold',
         transition: 'background-color 0.3s',
       },
       deleteButton: {
@@ -127,15 +139,16 @@ import { useState } from 'react';
         border: 'none',
         color: '#FFFFFF',
         cursor: 'pointer',
-        borderRadius: '5px',
+        borderRadius: '20px',
         transition: 'background-color 0.3s',
       },
       tableContainer: {
-        backgroundColor: '#444444',
-        borderRadius: '10px',
+        backgroundColor: '#2a2a2a',
+        borderRadius: '20px',
         padding: '20px',
         margin: '20px auto',
         width: '80%',
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
       },
       table: {
         width: '100%',
@@ -144,18 +157,40 @@ import { useState } from 'react';
       th: {
         borderBottom: '2px solid #FFD700',
         padding: '10px',
+        backgroundColor: '#444444',
+        color: '#FFD700',
+        borderRadius: '20px',
       },
       td: {
-        borderBottom: '1px solid #FFD700',
+        borderBottom: '1px solid #444444',
         padding: '10px',
       },
+      totalContainer: {
+        backgroundColor: '#2a2a2a',
+        borderRadius: '20px',
+        padding: '10px',
+        margin: '20px auto',
+        width: '80%',
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+      },
       total: {
-        marginTop: '20px',
+        color: '#FFFFFF',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+      totalAmount: {
         color: '#FFD700',
+      },
+      verticalSeparator: {
+        width: '1px',
+        height: '20px',
+        backgroundColor: '#FFD700',
+        margin: '0 10px',
       },
     };
 
-    styles.button[':hover'] = {
+    styles.circleButton[':hover'] = {
       backgroundColor: '#FFC107',
     };
 
