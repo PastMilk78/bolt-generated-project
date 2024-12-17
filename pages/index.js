@@ -101,6 +101,9 @@ import { useState } from 'react';
         backgroundColor: '#1a1a1a',
         textAlign: 'center',
         minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
       },
       title: {
         letterSpacing: '-0.05em',
